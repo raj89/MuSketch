@@ -35,13 +35,33 @@ public class StaticWaveform : MonoBehaviour
 		{
 			blank[i] = backgroundColor;
 		}
-		
 
-		GetWaveform();
+		GetWaveForm();
 	}
-	
-	void GetWaveform()
+
+	void UpdateAudio() {
+		string sampleName = GameObject.Find ("AlertSphere").GetComponent<AlertTrigger> ().sampleName;
+		if (sampleName != "") {
+			audio = GameObject.Find(sampleName).GetComponent<SoundInfo>().sample;
+		}
+	}
+
+
+	IEnumerator UpdateWaveForm()
 	{
+		while (true)
+		{
+			GetWaveForm();
+			yield return new WaitForSeconds(0.1f);
+		}
+	}
+
+	void GetWaveForm()
+	{
+
+		UpdateAudio();
+		size = audio.clip.samples * audio.clip.channels;
+		samples = new float[size];
 		// clear the texture
 		texture.SetPixels(blank, 0);
 		

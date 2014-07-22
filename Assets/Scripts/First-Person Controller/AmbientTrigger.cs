@@ -16,6 +16,7 @@ public class AmbientTrigger : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.GetComponent<SoundInfo>()) {
+			other.gameObject.GetComponent<SoundInfo>().sonify.mute = false;
 			other.gameObject.GetComponent<SoundInfo>().sonify.Play();
 		}
 		
@@ -23,7 +24,7 @@ public class AmbientTrigger : MonoBehaviour {
 
 	void OnTriggerExit(Collider other) {
 		if (other.gameObject.GetComponent<SoundInfo>()) {
-			other.gameObject.GetComponent<SoundInfo>().sonify.loop = false;
+			other.gameObject.GetComponent<SoundInfo>().sonify.mute = true;
 		}
 	}
 }

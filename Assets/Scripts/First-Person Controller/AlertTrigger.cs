@@ -6,7 +6,9 @@ public class AlertTrigger : MonoBehaviour {
 	public AudioSource sonifyHot;
 	public AudioSource sonifyMatch;
 	public string matchPreference;
+	public string sampleName = "";
 	public int hotNum;
+
 
 	// Use this for initialization
 	void Start () {
@@ -22,8 +24,7 @@ public class AlertTrigger : MonoBehaviour {
 		if (other.gameObject.GetComponent<SoundInfo>()) {
 			other.gameObject.GetComponent<SoundInfo>().sample.mute = false;
 			other.gameObject.GetComponent<SoundInfo>().sonify.mute = true;
-			GameObject.Find("Glass").GetComponent<DynamicWaveform>().audio = other.gameObject.GetComponent<SoundInfo>().sample;
-			GameObject.Find("Glass").GetComponent<StaticWaveform>().audio = other.gameObject.GetComponent<SoundInfo>().sample;
+			sampleName = other.gameObject.name;
 			if (other.gameObject.GetComponent<SoundInfo> ().numLikes >= hotNum) {
 				sonifyHot.Play ();
 			}
@@ -38,12 +39,6 @@ public class AlertTrigger : MonoBehaviour {
 		if (other.gameObject.GetComponent<SoundInfo>()) {
 			other.gameObject.GetComponent<SoundInfo>().sample.mute = true;
 			other.gameObject.GetComponent<SoundInfo>().sonify.mute = false;
-			if (other.gameObject.GetComponent<SoundInfo> ().numLikes >= hotNum) {
-				sonifyHot.Play ();
-			}
-			if (other.gameObject.tag == matchPreference) {
-				sonifyMatch.Play ();
-			}
 		}
 		
 	}

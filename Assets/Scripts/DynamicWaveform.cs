@@ -20,7 +20,7 @@ public class DynamicWaveform : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		audio = GameObject.Find ("SampleA").GetComponent<SoundInfo> ().sample;
+		audio = GameObject.Find ("SampleA").GetComponent<SoundInfo>().sample;
 		samples = new float[size];
 		
 		// create the texture and assign to the guiTexture:
@@ -38,6 +38,13 @@ public class DynamicWaveform : MonoBehaviour
 		// refresh the display each 100mS
 		StartCoroutine(UpdateWaveForm());
 	}
+
+	void UpdateAudio() {
+		string sampleName = GameObject.Find ("AlertSphere").GetComponent<AlertTrigger> ().sampleName;
+		if (sampleName != "") {
+			audio = GameObject.Find(sampleName).GetComponent<SoundInfo>().sample;
+		}
+	}
 	
 	IEnumerator UpdateWaveForm()
 	{
@@ -50,6 +57,7 @@ public class DynamicWaveform : MonoBehaviour
 	
 	void GetCurWave()
 	{
+		UpdateAudio();
 		// clear the texture
 		texture.SetPixels(blank, 0);
 		
