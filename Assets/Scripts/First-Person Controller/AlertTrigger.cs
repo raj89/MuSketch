@@ -25,6 +25,7 @@ public class AlertTrigger : MonoBehaviour {
 			other.gameObject.GetComponent<SoundInfo>().sample.mute = false;
 			other.gameObject.GetComponent<SoundInfo>().sonify.mute = true;
 			sampleName = other.gameObject.name;
+			GameObject.Find("Sample Name").GetComponent<GUIText>().guiText.text = "Sample Name: " +sampleName;
 			if (other.gameObject.GetComponent<SoundInfo> ().numLikes >= hotNum) {
 				sonifyHot.Play ();
 			}
